@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo "mysql mysql startup"
-kubectl create -f ./deploy/mysql/mysql-local.yaml
+kubectl create -f ./deploy/mysql/mysql-nfs.yaml
 
 
 echo "nacos quick startup"
