@@ -1,3 +1,20 @@
+# 使用managed-nfs-storage 存储类创建pvc
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-data
+  labels:
+    name: mysql-data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  storageClassName: managed-nfs-storage
+
+#
+---
 apiVersion: v1
 kind: ReplicationController
 metadata:
@@ -32,9 +49,9 @@ spec:
           value: "nacos"
       volumes:
       - name: mysql-data
-        nfs:
-          server: 172.17.79.3
-          path: /data/mysql
+        persistentVolumeClaim:
+          claimName: mysql-data
+
 ---
 apiVersion: v1
 kind: Service
